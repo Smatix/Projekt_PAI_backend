@@ -9,13 +9,14 @@
 namespace App\Reservation\Domain\Factory;
 
 use App\Reservation\Domain\Reservation;
+use App\Shared\Infrastructure\Uuid\RamseyUuidAdapter;
 
 class ReservationFactory
 {
     public static function create($reservationDate, $parkingId, $userId)
     {
         return new Reservation(
-            '594f483a-20f0-11ea-978f-2e728ce88125',
+            RamseyUuidAdapter::generate(),
             Reservation::STATUS_PENDING,
             new \DateTime('now'),
             $reservationDate,

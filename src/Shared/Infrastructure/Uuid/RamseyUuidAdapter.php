@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Mateusz
- * Date: 18.12.2019
- * Time: 20:39
- */
 
 namespace App\Shared\Infrastructure\Uuid;
 
@@ -33,4 +27,11 @@ class RamseyUuidAdapter implements UuidInterface
     {
         return $this->id->toString();
     }
+
+    public function __toString()
+    {
+        return $this->id->toString();
+    }
+
+
 }
