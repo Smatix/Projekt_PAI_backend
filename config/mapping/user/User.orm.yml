@@ -1,0 +1,22 @@
+App\User\Domain\User:
+  type: entity
+  table: user
+  id:
+    id:
+      type: string
+      nullable: false
+      length: 128
+      generator: { strategy: NONE }
+  fields:
+    username:
+      type: string
+    email:
+      type: string
+    name:
+      type: string
+    surname:
+      type: string
+    password:
+      type: string
+    roles:
+      type: array
