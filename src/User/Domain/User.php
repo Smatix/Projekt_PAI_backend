@@ -2,18 +2,74 @@
 
 namespace App\User\Domain;
 
-
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
 {
+    /**
+     * @var string
+     */
     private $id;
-    private $email;
+
+    /**
+     * @var string
+     */
     private $username;
+
+    /**
+     * @var string
+     */
     private $password;
+
+    /**
+     * @var string
+     */
+    private $email;
+
+    /**
+     * @var string
+     */
     private $name;
+
+    /**
+     * @var string
+     */
     private $surname;
+
+    /**
+     * @var array
+     */
     private $roles = [];
+
+    /**
+     * User constructor.
+     * @param string $id
+     * @param string $username
+     * @param string $password
+     * @param string $email
+     * @param string $name
+     * @param string $surname
+     * @param array $roles
+     */
+    public function __construct(
+        string $id,
+        string $username,
+        string $password,
+        string $email,
+        string $name,
+        string $surname,
+        array $roles
+    )
+    {
+        $this->id = $id;
+        $this->username = $username;
+        $this->password = $password;
+        $this->email = $email;
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->roles = $roles;
+    }
+
 
     public function getSalt()
     {
@@ -24,59 +80,59 @@ class User implements UserInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getSurname()
+    public function getSurname(): string
     {
         return $this->surname;
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getRoles()
+    public function getRoles(): array
     {
-        return ['ROLE_USER'];
+        return $this->roles;
     }
 
 
