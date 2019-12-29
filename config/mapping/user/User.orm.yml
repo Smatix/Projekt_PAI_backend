@@ -5,11 +5,9 @@ App\User\Domain\User:
     id:
       type: string
       nullable: false
-      length: 128
+      length: 36
       generator: { strategy: NONE }
   fields:
-    username:
-      type: string
     email:
       type: string
     name:

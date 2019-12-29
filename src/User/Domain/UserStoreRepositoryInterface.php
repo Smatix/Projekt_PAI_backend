@@ -5,7 +5,7 @@ namespace App\User\Domain;
 
 interface UserStoreRepositoryInterface
 {
-    public function findByUsername(string $username);
+    public function findByEmail(string $email);
 
     public function save(User $user);
 }

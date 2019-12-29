@@ -22,11 +22,11 @@ class RegisterUserHandler implements MessageHandlerInterface
     public function __invoke(RegisterUserCommand $command)
     {
         $user = UserFactory::create(
-            $command->getUsername(),
             $command->getPlainPassword(),
             $command->getEmail(),
             $command->getName(),
-            $command->getSurname()
+            $command->getSurname(),
+            $command->getRole()
         );
 
         $this->repository->save($user);

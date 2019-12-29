@@ -6,7 +6,6 @@ namespace App\User\Application\Command;
 class RegisterUserCommand
 {
     private $email;
-    private $username;
     private $plainPassword;
     private $name;
     private $surname;
@@ -26,22 +25,6 @@ class RegisterUserCommand
     public function setEmail($email): void
     {
         $this->email = $email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * @param mixed $username
-     */
-    public function setUsername($username): void
-    {
-        $this->username = $username;
     }
 
     /**

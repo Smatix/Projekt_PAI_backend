@@ -14,10 +14,11 @@ class UserStoreRepository extends MysqlRepository implements UserStoreRepository
         parent::__construct($entityManager, User::class);
     }
 
-    public function findByUsername(string $username)
+    public function findByEmail(string $email)
     {
-
+        // TODO: Implement findByEmail() method.
     }
+
 
     public function save(User $user)
     {

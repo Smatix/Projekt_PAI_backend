@@ -40,7 +40,7 @@ class UserController extends AbstractController
             return $this->json($errors, 400);
         }
         $this->messageBus->dispatch($command);
-        return $this->json($command->getUsername(), 201);
+        return $this->json($command->getEmail(), 201);
     }
 
     protected function getErrorsFromForm(FormInterface $form)
