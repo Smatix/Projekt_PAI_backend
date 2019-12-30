@@ -1,0 +1,22 @@
+App\Parking\Domain\Model\SubscriptionList:
+  type: entity
+  table: subscription_list
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+    period:
+      type: integer
+    unit:
+      type: string
+    price:
+      type: string
+  manyToOne:
+    type:
+      targetEntity: App\Shared\Domain\Model\ParkingSpaceType
+    parking:
+      targetEntity: App\Parking\Domain\Parking
+      inversedBy: subscriptionList

@@ -1,0 +1,19 @@
+App\Shared\Domain\ValueObject\Address:
+  type: embeddable
+  fields:
+    street:
+      type: string
+      nullable: false
+      length: 255
+    number:
+      type: string
+      nullable: false
+      length: 255
+    postCode:
+      type: string
+      nullable: false
+      length: 255
+    city:
+      type: string
+      nullable: false
+      length: 255

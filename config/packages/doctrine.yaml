@@ -18,9 +18,21 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App\User\Domain\User:
+            User:
                 is_bundle: false
                 type: yml
                 dir: '%kernel.project_dir%/config/mapping/user'
                 prefix: 'App\User\Domain'
                 alias: User
+            Parking:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/config/mapping/parking'
+                prefix: 'App\Parking\Domain'
+                alias: Parking
+            Shared:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/config/mapping/shared'
+                prefix: 'App\Shared\Domain'
+                alias: Shared

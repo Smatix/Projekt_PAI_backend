@@ -114,6 +114,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.3"
     },
+    "opencage/geocode": {
+        "version": "2.1.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },

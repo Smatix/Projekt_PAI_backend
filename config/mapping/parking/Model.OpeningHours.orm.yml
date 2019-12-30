@@ -1,0 +1,18 @@
+App\Parking\Domain\Model\OpeningHours:
+  type: entity
+  table: parkingopening_hours
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    weekDay:
+      type: integer
+    open:
+      type: time
+    close:
+      type: time
+  manyToOne:
+    parking:
+      targetEntity: App\Parking\Domain\Parking
+      inversedBy: openingHours

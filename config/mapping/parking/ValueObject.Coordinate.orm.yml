@@ -1,0 +1,11 @@
+App\Parking\Domain\ValueObject\Coordinate:
+  type: embeddable
+  fields:
+    latitude:
+      type: string
+      nullable: true
+      length: 255
+    longitude:
+      type: string
+      nullable: true
+      length: 255

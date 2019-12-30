@@ -1,0 +1,20 @@
+App\Parking\Domain\Model\PriceList:
+  type: entity
+  table: price_list
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    period:
+      type: integer
+    unit:
+      type: string
+    price:
+      type: string
+  manyToOne:
+    type:
+      targetEntity: App\Shared\Domain\Model\ParkingSpaceType
+    parking:
+      targetEntity: App\Parking\Domain\Parking
+      inversedBy: priceList

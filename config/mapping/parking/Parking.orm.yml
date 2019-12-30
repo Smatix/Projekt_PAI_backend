@@ -1,0 +1,44 @@
+App\Parking\Domain\Parking:
+  type: entity
+  table: parking
+  id:
+    id:
+      type: string
+      nullable: false
+      length: 36
+      generator: { strategy: NONE }
+  fields:
+    owner:
+      type: string
+    name:
+      type: string
+  embedded:
+    coordinate:
+      class: App\Parking\Domain\ValueObject\Coordinate
+    address:
+      class: App\Shared\Domain\ValueObject\Address
+  oneToMany:
+    parkingSpaces:
+      targetEntity: App\Parking\Domain\Model\ParkingSpace
+      mappedBy: parking
+      orphanRemoval: true
+      cascade:
+        - 'persist'
+    priceList:
+      targetEntity: App\Parking\Domain\Model\PriceList
+      mappedBy: parking
+      orphanRemoval: true
+      cascade:
+        - 'persist'
+    subscriptionList:
+      targetEntity: App\Parking\Domain\Model\SubscriptionList
+      mappedBy: parking
+      orphanRemoval: true
+      cascade:
+        - 'persist'
+    openingHours:
+      targetEntity: App\Parking\Domain\Model\OpeningHours
+      mappedBy: parking
+      orphanRemoval: true
+      cascade:
+        - 'persist'

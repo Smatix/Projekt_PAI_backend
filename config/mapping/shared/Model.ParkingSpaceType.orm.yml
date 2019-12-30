@@ -1,0 +1,11 @@
+App\Shared\Domain\Model\ParkingSpaceType:
+  type: entity
+  readOnly: true
+  table: parking_space_type
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
