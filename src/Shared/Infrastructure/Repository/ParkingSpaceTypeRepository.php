@@ -26,4 +26,16 @@ class ParkingSpaceTypeRepository extends MysqlRepository
         }
         return $array;
     }
+
+    public function getByName($name)
+    {
+        $result = $this->repository->createQueryBuilder('t')
+            ->select('t')
+            ->where('t.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getSingleResult();
+
+        return $result;
+    }
 }

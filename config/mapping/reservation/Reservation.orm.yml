@@ -1,0 +1,23 @@
+App\Reservation\Domain\Reservation:
+  type: entity
+  table: reservation
+  id:
+    id:
+      type: string
+      nullable: false
+      length: 36
+      generator: { strategy: NONE }
+  fields:
+    status:
+      type: integer
+    expiredDate:
+      type: date
+    userId:
+      type: string
+    parkingId:
+      type: string
+    createdAt:
+      type: datetime
+  manyToOne:
+    type:
+      targetEntity: App\Shared\Domain\Model\ParkingSpaceType

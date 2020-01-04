@@ -48,3 +48,9 @@ doctrine:
                 dir: '%kernel.project_dir%/config/mapping/parking_search'
                 prefix: 'App\ParkingSearch\Domain'
                 alias: ParkingSearch
+            Reservation:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/config/mapping/reservation'
+                prefix: 'App\Reservation\Domain'
+                alias: Reservation

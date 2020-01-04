@@ -62,7 +62,7 @@ class ParkingSearchController extends AbstractController
             $msg = ['code' => 404, 'message' =>'Parking not found'];
             return $this->json($msg, 404);
         }
-        return $this->json($result);
+        return $this->json($result->toArray());
     }
 
     /**

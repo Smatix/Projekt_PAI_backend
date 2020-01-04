@@ -62,7 +62,6 @@ class ParkingReadRepository extends MysqlRepository
             ->getQuery()
             ->getOneOrNullResult();
 
-        if ($data) return $data->toArray();
         return $data;
     }
 }

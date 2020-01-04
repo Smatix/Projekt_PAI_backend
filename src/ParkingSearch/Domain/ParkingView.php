@@ -104,7 +104,7 @@ class ParkingView
      */
     public function getOpeningHours()
     {
-        return json_decode($this->openingHours);
+        return json_decode($this->openingHours, true);
     }
 
     /**
@@ -112,7 +112,7 @@ class ParkingView
      */
     public function getPriceList()
     {
-        return json_decode($this->priceList);
+        return json_decode($this->priceList, true);
     }
 
     /**
@@ -120,7 +120,7 @@ class ParkingView
      */
     public function getParkingSpace()
     {
-        return json_decode($this->parkingSpace);
+        return json_decode($this->parkingSpace, true);
     }
 
     public function toArray()

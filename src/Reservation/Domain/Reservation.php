@@ -2,17 +2,18 @@
 
 namespace App\Reservation\Domain;
 
+use App\Shared\Domain\Model\ParkingSpaceType;
 use \DateTime;
 
 class Reservation
 {
-    const STATUS_PENDING = 'pending';
-    const STATUS_ACTIVE = 'active';
-    const STATUS_FAILED = 'failed';
-    const STATUS_CANCELED = 'canceled';
-    const STATUS_RECEIVED = 'received';
-    const STATUS_FINISHED = 'finished';
-    const STATUS_EXPIRED = 'expired';
+    const STATUS_PENDING = 1;
+    const STATUS_ACTIVE = 2;
+    const STATUS_FAILED = 3;
+    const STATUS_CANCELED = 4;
+    const STATUS_RECEIVED = 5;
+    const STATUS_FINISHED = 6;
+    const STATUS_EXPIRED = 7;
 
     /**
      * @var string
@@ -20,7 +21,7 @@ class Reservation
     private $id;
 
     /**
-     * @var string
+     * @var int
      */
     private $status;
 
@@ -34,8 +35,19 @@ class Reservation
      */
     private $expiredDate;
 
+    /**
+     * @var ParkingSpaceType
+     */
+    private $type;
+
+    /**
+     * @var string
+     */
     private $parkingId;
 
+    /**
+     * @var string
+     */
     private $userId;
 
     /**
@@ -44,24 +56,34 @@ class Reservation
      * @param string $status
      * @param DateTime $createdAt
      * @param DateTime $expiredDate
+     * @param ParkingSpaceType $type
      * @param $parkingId
      * @param $userId
      */
-    public function __construct(string $id, string $status, DateTime $createdAt, DateTime $expiredDate, $parkingId, $userId)
+    public function __construct(
+        string $id,
+        string $status,
+        DateTime $createdAt,
+        DateTime $expiredDate,
+        ParkingSpaceType $type,
+        $parkingId,
+        $userId
+    )
     {
         $this->id = $id;
         $this->status = $status;
         $this->createdAt = $createdAt;
         $this->expiredDate = $expiredDate;
+        $this->type = $type;
         $this->parkingId = $parkingId;
         $this->userId = $userId;
     }
 
 
     /**
-     * @return string
+     * @return int
      */
-    public function getStatus(): string
+    public function getStatus(): int
     {
         return $this->status;
     }
