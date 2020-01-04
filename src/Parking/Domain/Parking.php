@@ -117,14 +117,4 @@ class Parking
         return \in_array($item, (array) $list, true);
     }
 
-    /**
-     * @return OpeningHours[]
-     */
-    public function getOpeningHours()
-    {
-        return $this->openingHours;
-    }
-
-
-
 }

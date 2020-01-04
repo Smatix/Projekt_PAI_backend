@@ -9,6 +9,11 @@ class CreateParkingCommand
     /**
      * @var string
      */
+    private $id;
+
+    /**
+     * @var string
+     */
     private $name;
 
     /**
@@ -38,12 +43,14 @@ class CreateParkingCommand
 
     /**
      * CreateParkingCommand constructor.
+     * @param string $id
      * @param string $name
      * @param Address $address
      * @param string $owner
      */
-    public function __construct(string $name, Address $address, string $owner)
+    public function __construct(string $id, string $name, Address $address, string $owner)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->owner = $owner;
         $this->address = $address;
@@ -71,6 +78,14 @@ class CreateParkingCommand
     public function setOpeningHours(array $openingHours): void
     {
         $this->openingHours = $openingHours;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
     }
 
     /**

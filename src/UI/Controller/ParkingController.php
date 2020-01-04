@@ -4,6 +4,7 @@ namespace App\UI\Controller;
 
 use App\Parking\Application\Command\CreateParkingCommand;
 use App\Shared\Domain\ValueObject\Address;
+use App\Shared\Infrastructure\Uuid\RamseyUuidAdapter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,9 @@ class ParkingController extends AbstractController
     public function createParking(Request $request)
     {
         $data = json_decode($request->getContent(), true);
+        $id = RamseyUuidAdapter::generate();
         $command = new CreateParkingCommand(
+            $id,
             $data['name'],
             Address::fromArray($data['address']),
             $this->getUser()->getId()
@@ -41,7 +44,7 @@ class ParkingController extends AbstractController
         $command->setParkingSpace($data['parking_space']);
         $command->setPriceList($data['price_list']);
         $this->messageBus->dispatch($command);
-        return $this->json('OK', 201);
+        return $this->json($id, 201);
 
     }
 }

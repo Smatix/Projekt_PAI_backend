@@ -37,6 +37,7 @@ class OpeningHours
      * @param int $weekDay
      * @param string $open
      * @param string $close
+     * @throws
      */
     public function __construct(int $weekDay, string $open, string $close)
     {
@@ -54,12 +55,18 @@ class OpeningHours
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getOpen(): \DateTime
+    public function getOpenHour(): string
     {
-        return $this->open;
+        return $this->open->format('H:i');
     }
 
-
+    /**
+     * @return string
+     */
+    public function getCloseHour(): string
+    {
+        return $this->close->format('H:i');
+    }
 }

@@ -7,7 +7,7 @@ doctrine:
         default_table_options:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
-
+        schema_filter: ~^(?!view_)~
         url: '%env(resolve:DATABASE_URL)%'
 
         # IMPORTANT: You MUST configure your server version,
@@ -36,3 +36,15 @@ doctrine:
                 dir: '%kernel.project_dir%/config/mapping/shared'
                 prefix: 'App\Shared\Domain'
                 alias: Shared
+            Opinion:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/config/mapping/opinion'
+                prefix: 'App\Opinion\Domain'
+                alias: Opinion
+            ParkingSearch:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/config/mapping/parking_search'
+                prefix: 'App\ParkingSearch\Domain'
+                alias: ParkingSearch

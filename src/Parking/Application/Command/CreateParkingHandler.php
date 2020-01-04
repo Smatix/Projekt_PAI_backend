@@ -36,7 +36,7 @@ class CreateParkingHandler implements MessageHandlerInterface
     public function __invoke(CreateParkingCommand $command)
     {
         $parking = new Parking(
-            RamseyUuidAdapter::generate(),
+            $command->getId(),
             $command->getName(),
             $command->getAddress(),
             $command->getOwner()
