@@ -39,7 +39,6 @@ class User implements UserInterface
     /**
      * User constructor.
      * @param string $id
-     * @param string $username
      * @param string $password
      * @param string $email
      * @param string $name

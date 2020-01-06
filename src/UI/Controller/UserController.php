@@ -6,6 +6,7 @@ use App\UI\Form\RegistrationType;
 use App\User\Application\Command\RegisterUserCommand;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -41,6 +42,20 @@ class UserController extends AbstractController
         }
         $this->messageBus->dispatch($command);
         return $this->json($command->getEmail(), 201);
+    }
+
+    /**
+     * @Route("api/user/data", methods="GET", name="get_user_data")
+     * @return JsonResponse
+     */
+    public function getUserData()
+    {
+        $userData = [
+            'name' => $this->getUser()->getName(),
+            'surname' => $this->getUser()->getSurname(),
+            'email' => $this->getUser()->getEmail(),
+        ];
+        return $this->json($userData);
     }
 
     protected function getErrorsFromForm(FormInterface $form)
