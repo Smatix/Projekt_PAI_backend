@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Reservation\Application\Command\Accept;
+namespace App\Reservation\Application\Command\Finish;
 
-class AcceptReservationCommand
+class FinishReservationCommand
 {
     /**
      * @var string
@@ -10,7 +10,7 @@ class AcceptReservationCommand
     private $id;
 
     /**
-     * AcceptReservationCommand constructor.
+     * FinishReservationCommand constructor.
      * @param string $id
      */
     public function __construct(string $id)

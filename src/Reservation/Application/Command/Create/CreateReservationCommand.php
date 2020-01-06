@@ -32,7 +32,7 @@ class CreateReservationCommand
     private $userId;
 
     /**
-     * CancelReservationCommand constructor.
+     * CreateReservationCommand constructor.
      */
     public function __construct()
     {

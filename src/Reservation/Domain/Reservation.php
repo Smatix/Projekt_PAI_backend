@@ -11,9 +11,8 @@ class Reservation
     const STATUS_ACTIVE = 2;
     const STATUS_FAILED = 3;
     const STATUS_CANCELED = 4;
-    const STATUS_RECEIVED = 5;
-    const STATUS_FINISHED = 6;
-    const STATUS_EXPIRED = 7;
+    const STATUS_FINISHED = 5;
+    const STATUS_EXPIRED = 6;
 
     /**
      * @var string
@@ -120,7 +119,8 @@ class Reservation
 
     public function cancel()
     {
-        if ($this->getStatus() === self::STATUS_ACTIVE) {
+        if ($this->getStatus() === self::STATUS_ACTIVE ||
+            $this->getStatus() === self::STATUS_PENDING) {
             $this->status = self::STATUS_CANCELED;
         }
     }
@@ -132,16 +132,9 @@ class Reservation
         }
     }
 
-    public function receive()
-    {
-        if ($this->getStatus() === self::STATUS_ACTIVE) {
-            $this->status = self::STATUS_RECEIVED;
-        }
-    }
-
     public function finish()
     {
-        if ($this->getStatus() === self::STATUS_RECEIVED) {
+        if ($this->getStatus() === self::STATUS_ACTIVE) {
             $this->status = self::STATUS_FINISHED;
         }
     }
@@ -156,8 +149,31 @@ class Reservation
 
     public function canBeShared(): bool
     {
-        return (
-            $this->status === Reservation::STATUS_ACTIVE ||
-            $this->status === Reservation::STATUS_RECEIVED);
+        return $this->status === Reservation::STATUS_ACTIVE;
     }
+
+    /**
+     * @return string
+     */
+    public function getParkingId(): string
+    {
+        return $this->parkingId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserId(): string
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @return ParkingSpaceType
+     */
+    public function getType(): ParkingSpaceType
+    {
+        return $this->type;
+    }
+
 }

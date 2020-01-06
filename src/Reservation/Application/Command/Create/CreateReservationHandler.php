@@ -41,6 +41,7 @@ class CreateReservationHandler implements MessageHandlerInterface
             $command->getParkingId(),
             $command->getUserId()
         );
+        $reservation->markAsActive();
         $this->repository->save($reservation);
     }
 }

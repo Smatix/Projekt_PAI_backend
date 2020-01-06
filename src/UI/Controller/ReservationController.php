@@ -5,7 +5,9 @@ namespace App\UI\Controller;
 use App\Reservation\Application\Command\Accept\AcceptReservationCommand;
 use App\Reservation\Application\Command\Cancel\CancelReservationCommand;
 use App\Reservation\Application\Command\Create\CreateReservationCommand;
+use App\Reservation\Application\Command\Finish\FinishReservationCommand;
 use App\Reservation\Application\Service\ReservationCheckService;
+use App\Reservation\Infrastructure\ReservationReadRepository;
 use App\UI\Form\ReservationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -28,14 +30,42 @@ class ReservationController extends AbstractController
     private $reservationCheck;
 
     /**
+     * @var ReservationReadRepository
+     */
+    private $repository;
+
+    /**
      * ReservationController constructor.
      * @param MessageBusInterface $messageBus
      * @param ReservationCheckService $reservationCheck
+     * @param ReservationReadRepository $repository
      */
-    public function __construct(MessageBusInterface $messageBus, ReservationCheckService $reservationCheck)
+    public function __construct(MessageBusInterface $messageBus, ReservationCheckService $reservationCheck, ReservationReadRepository $repository)
     {
         $this->messageBus = $messageBus;
         $this->reservationCheck = $reservationCheck;
+        $this->repository = $repository;
+    }
+
+
+    /**
+     * @Route("/api/user/reservations", methods="GET", name="get_user_reservations")
+     * @return JsonResponse
+     */
+    public function getUserReservations()
+    {
+        $data = $this->repository->getCurrentReservationByUser($this->getUser()->getId());
+        return $this->json($data);
+    }
+
+    /**
+     * @Route("/api/user/reservations/finished", methods="GET", name="get_user_finished_reservations")
+     * @return JsonResponse
+     */
+    public function getUserFinishedReservations()
+    {
+        $data = $this->repository->getFinishedReservationByUser($this->getUser()->getId());
+        return $this->json($data);
     }
 
 
@@ -86,6 +116,18 @@ class ReservationController extends AbstractController
         $command = new AcceptReservationCommand($id);
         $this->messageBus->dispatch($command);
         return $this->json('Reservation was accept', 200);
+    }
+
+    /**
+     * @Route("/api/reservations/{id}/finish", methods="PATCH", name="finish_reservation")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function finishReservation($id)
+    {
+        $command = new FinishReservationCommand($id);
+        $this->messageBus->dispatch($command);
+        return $this->json('Reservation was finish', 200);
     }
 
     protected function getErrorsFromForm(FormInterface $form)

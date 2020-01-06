@@ -1,0 +1,20 @@
+App\Payment\Domain\Payment:
+  type: entity
+  table: payment
+  id:
+    id:
+      type: string
+      nullable: false
+      length: 36
+      generator: { strategy: NONE }
+  fields:
+    status:
+      type: integer
+    stayingId:
+      type: string
+    amount:
+      type: string
+    userId:
+      type: string
+    createdAt:
+      type: datetime

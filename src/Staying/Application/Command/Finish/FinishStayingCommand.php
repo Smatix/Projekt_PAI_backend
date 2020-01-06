@@ -1,8 +1,15 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Mateusz
+ * Date: 04.01.2020
+ * Time: 20:15
+ */
 
-namespace App\Reservation\Application\Command\Accept;
+namespace App\Staying\Application\Command\Finish;
 
-class AcceptReservationCommand
+
+class FinishStayingCommand
 {
     /**
      * @var string
@@ -10,7 +17,7 @@ class AcceptReservationCommand
     private $id;
 
     /**
-     * AcceptReservationCommand constructor.
+     * FinishStayingCommand constructor.
      * @param string $id
      */
     public function __construct(string $id)
@@ -25,5 +32,4 @@ class AcceptReservationCommand
     {
         return $this->id;
     }
-
 }

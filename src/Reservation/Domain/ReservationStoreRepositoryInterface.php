@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Mateusz
- * Date: 04.01.2020
- * Time: 08:56
- */
 
 namespace App\Reservation\Domain;
 

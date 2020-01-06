@@ -54,3 +54,15 @@ doctrine:
                 dir: '%kernel.project_dir%/config/mapping/reservation'
                 prefix: 'App\Reservation\Domain'
                 alias: Reservation
+            Staying:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/config/mapping/staying'
+                prefix: 'App\Staying\Domain'
+                alias: Staying
+            Payment:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/config/mapping/payment'
+                prefix: 'App\Payment\Domain'
+                alias: Payment

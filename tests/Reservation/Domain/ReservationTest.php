@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Mateusz
- * Date: 15.12.2019
- * Time: 15:41
- */
 
 namespace App\Tests\Reservation\Domain;
 
@@ -41,7 +35,7 @@ class ReservationTest extends TestCase
         $this->assertEquals(Reservation::STATUS_FAILED, $reservation->getStatus());
     }
 
-    public function testCancel()
+    public function testCancelWhenActive()
     {
         $date = new \DateTime('tomorrow');
         $reservation = ReservationFactory::create(
@@ -55,7 +49,7 @@ class ReservationTest extends TestCase
         $this->assertEquals(Reservation::STATUS_CANCELED, $reservation->getStatus());
     }
 
-    public function testReceive()
+    public function testCancelWhenPending()
     {
         $date = new \DateTime('tomorrow');
         $reservation = ReservationFactory::create(
@@ -64,9 +58,8 @@ class ReservationTest extends TestCase
             new ParkingSpaceType('car'),
             '594f483a-20f0-11ea-978f-2e728ce88125',
             '594f483a-20f0-11ea-978f-2e728ce88125');
-        $reservation->markAsActive();
-        $reservation->receive();
-        $this->assertEquals(Reservation::STATUS_RECEIVED, $reservation->getStatus());
+        $reservation->cancel();
+        $this->assertEquals(Reservation::STATUS_CANCELED, $reservation->getStatus());
     }
 
     public function testMarkAsExpired()
@@ -93,7 +86,6 @@ class ReservationTest extends TestCase
             '594f483a-20f0-11ea-978f-2e728ce88125',
             '594f483a-20f0-11ea-978f-2e728ce88125');
         $reservation->markAsActive();
-        $reservation->receive();
         $reservation->finish();
         $this->assertEquals(Reservation::STATUS_FINISHED, $reservation->getStatus());
     }
@@ -147,7 +139,6 @@ class ReservationTest extends TestCase
             '594f483a-20f0-11ea-978f-2e728ce88125',
             '594f483a-20f0-11ea-978f-2e728ce88125');
         $reservation->markAsActive();
-        $reservation->receive();
         $reservation->finish();
         $this->assertFalse($reservation->canBeShared());
     }

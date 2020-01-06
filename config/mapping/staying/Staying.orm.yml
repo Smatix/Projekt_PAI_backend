@@ -1,0 +1,22 @@
+App\Staying\Domain\Staying:
+  type: entity
+  table: staying
+  id:
+    id:
+      type: string
+      nullable: false
+      length: 36
+      generator: { strategy: NONE }
+  fields:
+    userId:
+      type: string
+    parkingId:
+      type: string
+    start:
+      type: datetime
+    end:
+      type: datetime
+      nullable: true
+  manyToOne:
+    type:
+      targetEntity: App\Shared\Domain\Model\ParkingSpaceType

@@ -64,27 +64,4 @@ class ParkingSearchController extends AbstractController
         }
         return $this->json($result->toArray());
     }
-
-    /**
-     * @Route("/api/parkings", methods="POST", name="create_parking")
-     * @param Request $request
-     * @return Response
-     */
-    public function createParking(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
-        $id = RamseyUuidAdapter::generate();
-        $command = new CreateParkingCommand(
-            $id,
-            $data['name'],
-            Address::fromArray($data['address']),
-            $this->getUser()->getId()
-        );
-        $command->setOpeningHours($data['open_list']);
-        $command->setParkingSpace($data['parking_space']);
-        $command->setPriceList($data['price_list']);
-        $this->messageBus->dispatch($command);
-        return $this->json($id, 201);
-
-    }
 }
