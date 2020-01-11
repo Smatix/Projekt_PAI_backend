@@ -3,6 +3,7 @@
 namespace App\UI\Controller;
 
 use App\Staying\Application\Command\Finish\FinishStayingCommand;
+use App\Staying\Application\Command\Stop\StopStayingCommand;
 use App\Staying\Application\Service\StayingPriceCounter;
 use App\Staying\Infrastructure\StayingReadRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,10 +50,31 @@ class StayingController extends AbstractController
     {
         $data = $this->repository->getCurrentStayingByUser($this->getUser()->getId());
         foreach ($data as &$item) {
+            if ($item['status'] === 2) {
+                $item['amount'] = $this->priceCounter->getAmountOfStaying(
+                    $item['parkingId'],
+                    $item['type'],
+                    $item['start']
+                );
+                $item['start_timestamp'] = $item['start']->getTimestamp();
+            }
+        }
+        return $this->json($data);
+    }
+
+    /**
+     * @Route("/api/user/stayings/history", methods="GET", name="get_user_finished_stayings")
+     * @return JsonResponse
+     */
+    public function getUserFinishedStayings()
+    {
+        $data = $this->repository->getFinishedStayingByUser($this->getUser()->getId());
+        foreach ($data as &$item) {
             $item['amount']= $this->priceCounter->getAmountOfStaying(
-                $item['start'],
+                $item['parkingId'],
                 $item['type'],
-                $item['parkingId']
+                $item['start'],
+                $item['end']
             );
             $item['start_timestamp'] = $item['start']->getTimestamp();
         }
@@ -60,14 +82,14 @@ class StayingController extends AbstractController
     }
 
     /**
-     * @Route("/api/stayings/{id}/finish", methods="PATCH", name="finish_staying")
+     * @Route("/api/stayings/{id}/finish", methods="PATCH", name="stop_staying")
      * @param $id
      * @return JsonResponse
      */
-    public function finishStaying($id)
+    public function stopStaying($id)
     {
-        $command = new FinishStayingCommand($id);
+        $command = new StopStayingCommand($id);
         $this->messageBus->dispatch($command);
-        return $this->json('Staying was finish', 200);
+        return $this->json('Staying was stop', 200);
     }
 }

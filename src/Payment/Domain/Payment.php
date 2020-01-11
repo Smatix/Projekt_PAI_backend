@@ -17,7 +17,7 @@ class Payment
     /**
      * @var string
      */
-    private $stayingId;
+    private $parkingId;
 
     /**
      * @var string
@@ -42,16 +42,16 @@ class Payment
     /**
      * Payment constructor.
      * @param string $id
-     * @param string $stayingId
+     * @param string parkingId
      * @param string $userId
      * @param string $amount
      * @param int $status
      * @param \DateTime $createdAt
      */
-    public function __construct(string $id, string $stayingId, string $userId, string $amount, int $status, \DateTime $createdAt)
+    public function __construct(string $id, string $parkingId, string $userId, string $amount, int $status, \DateTime $createdAt)
     {
         $this->id = $id;
-        $this->stayingId = $stayingId;
+        $this->parkingId = $parkingId;
         $this->userId = $userId;
         $this->amount = $amount;
         $this->status = $status;

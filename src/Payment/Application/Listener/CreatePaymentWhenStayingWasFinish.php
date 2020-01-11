@@ -29,7 +29,7 @@ class CreatePaymentWhenStayingWasFinish implements MessageHandlerInterface
     {
         $payment = PaymentFactory::create(
             RamseyUuidAdapter::generate(),
-            $event->getStayingId(),
+            $event->getParkingId(),
             $event->getUserId(),
             $event->getAmount()
         );

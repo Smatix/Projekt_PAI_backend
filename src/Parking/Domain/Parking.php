@@ -53,6 +53,11 @@ class Parking
     private $openingHours = [];
 
     /**
+     * @var Employee[]
+     */
+    private $employees = [];
+
+    /**
      * @var string
      */
     private $owner;
@@ -109,6 +114,15 @@ class Parking
         $openingHours->setParking($this);
         if (!$this->contains($openingHours, $this->openingHours)) {
             $this->openingHours[] = $openingHours;
+        }
+    }
+
+    public  function addEmployee(string $userId): void
+    {
+        $employee = new Employee($userId);
+        $employee->setParking($this);
+        if (!$this->contains($employee, $this->employees)) {
+            $this->employees[] = $employee;
         }
     }
 

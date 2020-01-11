@@ -14,9 +14,12 @@ App\Staying\Domain\Staying:
       type: string
     start:
       type: datetime
+      nullable: true
     end:
       type: datetime
       nullable: true
+    status:
+      type: integer
   manyToOne:
     type:
       targetEntity: App\Shared\Domain\Model\ParkingSpaceType

@@ -31,8 +31,7 @@ class CreateStayingWhenReservationWasFinish implements MessageHandlerInterface
             RamseyUuidAdapter::generate(),
             $event->getType(),
             $event->getParkingId(),
-            $event->getUserId(),
-            $event->getStart()
+            $event->getUserId()
         );
         $this->repository->save($staying);
     }

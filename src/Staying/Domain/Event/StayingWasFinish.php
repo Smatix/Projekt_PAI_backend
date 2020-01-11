@@ -7,7 +7,7 @@ class StayingWasFinish
     /**
      * @var string
      */
-    private $stayingId;
+    private $parkingId;
 
     /**
      * @var string
@@ -21,13 +21,13 @@ class StayingWasFinish
 
     /**
      * StayingWasFinish constructor.
-     * @param string $stayingId
+     * @param string $parkingId
      * @param string $userId
      * @param string $amount
      */
-    public function __construct(string $stayingId, string $userId, string $amount)
+    public function __construct(string $parkingId, string $userId, string $amount)
     {
-        $this->stayingId = $stayingId;
+        $this->parkingId = $parkingId;
         $this->userId = $userId;
         $this->amount = $amount;
     }
@@ -35,9 +35,9 @@ class StayingWasFinish
     /**
      * @return string
      */
-    public function getStayingId(): string
+    public function getParkingId(): string
     {
-        return $this->stayingId;
+        return $this->parkingId;
     }
 
     /**

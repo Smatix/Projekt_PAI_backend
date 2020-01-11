@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UI\Controller;
+namespace App\UI\Controller\Owner;
 
 use App\Parking\Application\Command\CreateParkingCommand;
 use App\Shared\Domain\ValueObject\Address;

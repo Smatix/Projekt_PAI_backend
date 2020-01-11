@@ -44,11 +44,12 @@ class FinishStayingHandler implements MessageHandlerInterface
         /** @var Staying $staying */
         $staying = $this->repository->getById($command->getId());
         $amountOfStaying = $this->priceCounter->getAmountOfStaying(
-            $staying->getStart(),
+            $staying->getParkingId(),
             $staying->getType()->getName(),
-            $staying->getParkingId()
+            $staying->getStart(),
+            $staying->getEnd()
         );
-        $staying->finish();
+        $staying->markAsFinish();
         $this->repository->save($staying);
         $stayingWasFinish = new StayingWasFinish(
             $command->getId(),

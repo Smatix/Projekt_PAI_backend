@@ -42,3 +42,9 @@ App\Parking\Domain\Parking:
       orphanRemoval: true
       cascade:
         - 'persist'
+    employees:
+      targetEntity: App\Parking\Domain\Employee
+      mappedBy: parking
+      orphanRemoval: true
+      cascade:
+        - 'persist'

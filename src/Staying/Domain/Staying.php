@@ -7,6 +7,11 @@ use DateTime;
 
 class Staying
 {
+    const STATUS_TO_ACCEPT = 1;
+    const STATUS_ACTIVE = 2;
+    const STATUS_STOP = 3;
+    const STATUS_FINISHED = 4;
+
     /**
      * @var string
      */
@@ -28,6 +33,11 @@ class Staying
     private $userId;
 
     /**
+     * @var int
+     */
+    private $status;
+
+    /**
      * @var DateTime
      */
     private $start;
@@ -43,15 +53,14 @@ class Staying
      * @param ParkingSpaceType $type
      * @param string $parkingId
      * @param string $userId
-     * @param DateTime $start
      */
-    public function __construct(string $id, ParkingSpaceType $type, string $parkingId, string $userId, DateTime $start)
+    public function __construct(string $id, ParkingSpaceType $type, string $parkingId, string $userId)
     {
         $this->id = $id;
         $this->type = $type;
         $this->parkingId = $parkingId;
         $this->userId = $userId;
-        $this->start = $start;
+        $this->status = self::STATUS_TO_ACCEPT;
     }
 
     /**
@@ -79,6 +88,14 @@ class Staying
     }
 
     /**
+     * @return DateTime|null
+     */
+    public function getEnd(): ?DateTime
+    {
+        return $this->end;
+    }
+
+    /**
      * @return string
      */
     public function getUserId(): string
@@ -88,13 +105,37 @@ class Staying
 
     public function isActive()
     {
-        return is_null($this->end);
+        return $this->status === self::STATUS_ACTIVE;
     }
 
-    public function finish()
+    public function stopCountingTime()
     {
         if ($this->isActive()) {
             $this->end = new DateTime('now');
+            $this->status = self::STATUS_STOP;
+        }
+    }
+
+    public function resumeCountingTime()
+    {
+        if (!$this->isActive()) {
+            $this->end = null;
+            $this->status = self::STATUS_ACTIVE;
+        }
+    }
+
+    public function markAsFinish()
+    {
+        if ($this->status === self::STATUS_STOP) {
+            $this->status = self::STATUS_FINISHED;
+        }
+    }
+
+    public function markAsActive()
+    {
+        if ($this->status === self::STATUS_TO_ACCEPT) {
+            $this->start = new DateTime('now');
+            $this->status = self::STATUS_ACTIVE;
         }
     }
 

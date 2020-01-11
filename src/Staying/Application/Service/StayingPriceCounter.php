@@ -2,8 +2,7 @@
 
 namespace App\Staying\Application\Service;
 
-
-use App\ParkingSearch\Infrastructure\Repository\ParkingReadRepository;
+use App\Parking\Infrastructure\ParkingReadRepository;
 
 class StayingPriceCounter
 {
@@ -21,22 +20,23 @@ class StayingPriceCounter
         $this->parkingRepository = $parkingRepository;
     }
 
-    public function getAmountOfStaying($start, $typeName, $parkingId)
+    public function getAmountOfStaying($parkingId, $typeName, $start, $end = null)
     {
-        $parking = $this->parkingRepository->getParkingById($parkingId);
+        if (!$end) {
+            $end = new \DateTime('now');
+        }
+        $priceList = $this->parkingRepository->getPriceListFromParkingBySpaceType($parkingId, $typeName);
         $amount = 0;
-        foreach ($parking->getPriceList() as $item) {
-            if ($item['type'] === $typeName) {
-                $amount = $this->calculateAmount($start, $item);
-            }
+        foreach ($priceList as $item) {
+            $amount = $this->calculateAmount($item, $start, $end);
         }
         return $amount;
     }
 
-    private function calculateAmount(\DateTime $start, $priceListItem)
+    private function calculateAmount($priceListItem, \DateTime $start, \DateTime $end)
     {
-        $timeDifference = $start->diff(new \DateTime('now'));
-        if ($priceListItem['unit'] === 'h' && $priceListItem['period'] === '1') {
+        $timeDifference = $start->diff($end);
+        if ($priceListItem['unit'] === 'h' && $priceListItem['period'] === 1) {
             return ($timeDifference->h + 1)*intval($priceListItem['price']);
         }
     }
