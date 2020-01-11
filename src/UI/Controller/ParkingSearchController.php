@@ -2,10 +2,7 @@
 
 namespace App\UI\Controller;
 
-use App\Parking\Application\Command\CreateParkingCommand;
 use App\ParkingSearch\Infrastructure\Repository\ParkingReadRepository;
-use App\Shared\Domain\ValueObject\Address;
-use App\Shared\Infrastructure\Uuid\RamseyUuidAdapter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
