@@ -132,9 +132,16 @@ class Reservation
         }
     }
 
+    public function canBeFinish()
+    {
+        $now = new DateTime('now');
+        return ($this->getStatus() === self::STATUS_ACTIVE) && ($now->format('Y-m-j') === $this->expiredDate->format('Y-m-j'));
+    }
+
     public function finish()
     {
-        if ($this->getStatus() === self::STATUS_ACTIVE) {
+
+        if ($this->canBeFinish()) {
             $this->status = self::STATUS_FINISHED;
         }
     }

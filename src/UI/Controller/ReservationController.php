@@ -122,9 +122,16 @@ class ReservationController extends AbstractController
      * @Route("/api/reservations/{id}/finish", methods="PATCH", name="finish_reservation")
      * @param $id
      * @return JsonResponse
+     * @throws \Exception
      */
     public function finishReservation($id)
     {
+        $today = new \DateTime('now');
+        $reservationDate = $this->repository->getDateOfReservation($id);
+        if (!($today->format('Y-m-j') === $reservationDate->format('Y-m-j'))) {
+            return $this->json('Can not finish reservation', 400);
+        }
+
         $command = new FinishReservationCommand($id);
         $this->messageBus->dispatch($command);
         return $this->json('Reservation was finish', 200);

@@ -32,6 +32,18 @@ class ReservationReadRepository extends MysqlRepository
         return $data;
     }
 
+    public function getDateOfReservation($id)
+    {
+        $data = $this->repository->createQueryBuilder('r')
+            ->select('r.expiredDate')
+            ->where('r.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
+
+        return $data['expiredDate'];
+    }
+
     public function getCurrentReservationByUser($userId)
     {
         $data = $this->repository->createQueryBuilder('r')

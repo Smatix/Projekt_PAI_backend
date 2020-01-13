@@ -37,14 +37,17 @@ class FinishReservationHandler implements MessageHandlerInterface
     {
         /** @var Reservation $reservation */
         $reservation = $this->repository->getById($command->getId());
-        $reservation->finish();
-        $this->repository->save($reservation);
-        $reservationWasFinish = new ReservationWasFinish(
-            new \DateTime('now'),
-            $reservation->getType(),
-            $reservation->getParkingId(),
-            $reservation->getUserId()
-        );
-        $this->eventBus->dispatch($reservationWasFinish);
+        if ($reservation->canBeFinish()) {
+            $reservation->finish();
+            $this->repository->save($reservation);
+            $reservationWasFinish = new ReservationWasFinish(
+                new \DateTime('now'),
+                $reservation->getType(),
+                $reservation->getParkingId(),
+                $reservation->getUserId()
+            );
+            $this->eventBus->dispatch($reservationWasFinish);
+        }
+
     }
 }
