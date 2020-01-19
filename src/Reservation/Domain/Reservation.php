@@ -140,7 +140,6 @@ class Reservation
 
     public function finish()
     {
-
         if ($this->canBeFinish()) {
             $this->status = self::STATUS_FINISHED;
         }

@@ -78,7 +78,7 @@ class ReservationTest extends TestCase
 
     public function testFinish()
     {
-        $date = new \DateTime('tomorrow');
+        $date = new \DateTime('now');
         $reservation = ReservationFactory::create(
             '594f483a-20f0-11ea-978f-2e728ce88125',
             $date->format('Y-m-d'),
@@ -88,6 +88,20 @@ class ReservationTest extends TestCase
         $reservation->markAsActive();
         $reservation->finish();
         $this->assertEquals(Reservation::STATUS_FINISHED, $reservation->getStatus());
+    }
+
+    public function testFinishWithBadDate()
+    {
+        $date = new \DateTime('tomorrow');
+        $reservation = ReservationFactory::create(
+            '594f483a-20f0-11ea-978f-2e728ce88125',
+            $date->format('Y-m-d'),
+            new ParkingSpaceType('car'),
+            '594f483a-20f0-11ea-978f-2e728ce88125',
+            '594f483a-20f0-11ea-978f-2e728ce88125');
+        $reservation->markAsActive();
+        $reservation->finish();
+        $this->assertEquals(Reservation::STATUS_ACTIVE, $reservation->getStatus());
     }
 
     public function testIsExpired()
@@ -118,7 +132,7 @@ class ReservationTest extends TestCase
 
     public function testCanBeShared()
     {
-        $date = new \DateTime('tomorrow');
+        $date = new \DateTime('now');
         $reservation = ReservationFactory::create(
             '594f483a-20f0-11ea-978f-2e728ce88125',
             $date->format('Y-m-d'),
@@ -131,7 +145,7 @@ class ReservationTest extends TestCase
 
     public function testCanNotBeShared()
     {
-        $date = new \DateTime('tomorrow');
+        $date = new \DateTime('now');
         $reservation = ReservationFactory::create(
             '594f483a-20f0-11ea-978f-2e728ce88125',
             $date->format('Y-m-d'),
