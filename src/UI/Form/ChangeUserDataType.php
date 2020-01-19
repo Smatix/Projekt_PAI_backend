@@ -38,9 +38,9 @@ class ChangeUserDataType extends AbstractType
                     new Email([
                         'message' => 'The email {{ value }} is not a valid email',
                     ]),
-                    new Callback([
-                        'callback' => [$this, 'checkEmail'],
-                    ]),
+//                    new Callback([
+//                        'callback' => [$this, 'checkEmail'],
+//                    ]),
                 ],
             ])
             ->add('newPassword', RepeatedType::class, array(
@@ -48,7 +48,14 @@ class ChangeUserDataType extends AbstractType
                 'first_options' => array('label' => false),
                 'second_options' => array('label' => false),
                 'invalid_message' => 'Password not match',
-            ));
+            ))
+            ->add('oldPassword', PasswordType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter an old password',
+                    ]),
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

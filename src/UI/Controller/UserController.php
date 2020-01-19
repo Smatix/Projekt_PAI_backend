@@ -65,23 +65,22 @@ class UserController extends AbstractController
     public function changeData(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-        $currentEmail = $this->getUser()->getEmail();
-        if (!$this->userService->checkIfPasswordIsCorrect($currentEmail, $data['oldPassword'])) {
-            return $this->json(['oldPassword' => 'The password is not the same'], 400);
-        }
         $command =  new ChangeUserDataCommand();
-        $command->setOldEmail($currentEmail);
-        $command->setOldPassword($data['oldPassword']);
+        $currentEmail = $this->getUser()->getEmail();
 
         $form = $this->createForm(ChangeUserDataType::class, $command);
         $form->submit($data);
         if (!$form->isValid()) {
             $errors = $this->getErrorsFromForm($form);
-            var_dump($errors);
             return $this->json($errors, 400);
         }
+        if (!$this->userService->checkIfPasswordIsCorrect($currentEmail, $data['oldPassword'])) {
+            return $this->json(['oldPassword' => 'The password is not the same'], 400);
+        }
+        $command->setOldEmail($currentEmail);
+        $command->setOldPassword($data['oldPassword']);
         $this->messageBus->dispatch($command);
-        return $this->json($command->getNewEmail(), 201);
+        return $this->json('Changed data', 200);
     }
 
     /**
