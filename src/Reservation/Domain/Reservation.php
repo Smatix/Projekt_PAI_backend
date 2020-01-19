@@ -52,7 +52,7 @@ class Reservation
     /**
      * Reservation constructor.
      * @param string $id
-     * @param string $status
+     * @param int $status
      * @param DateTime $createdAt
      * @param DateTime $expiredDate
      * @param ParkingSpaceType $type
@@ -61,7 +61,7 @@ class Reservation
      */
     public function __construct(
         string $id,
-        string $status,
+        int $status,
         DateTime $createdAt,
         DateTime $expiredDate,
         ParkingSpaceType $type,
@@ -78,6 +78,13 @@ class Reservation
         $this->userId = $userId;
     }
 
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
 
     /**
      * @return int

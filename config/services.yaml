@@ -33,3 +33,15 @@ services:
 
     App\User\Domain\UserStoreRepositoryInterface $inMemoryRepository: '@App\User\Infrastructure\InMemoryUserStoreRepository'
     App\User\Domain\UserStoreRepositoryInterface: '@App\User\Infrastructure\UserStoreRepository'
+
+    #ReservationStoreRepository
+
+    App\Reservation\Infrastructure\ReservationStoreRepository: ~
+
+    App\Reservation\Domain\ReservationStoreRepositoryInterface: '@App\Reservation\Infrastructure\ReservationStoreRepository'
+
+    #ReservationStoreRepository
+
+    App\Shared\Infrastructure\ParkingSpaceTypeRepository: ~
+
+    App\Shared\Domain\ParkingSpaceTypeRepositoryInterface: '@App\Shared\Infrastructure\ParkingSpaceTypeRepository'

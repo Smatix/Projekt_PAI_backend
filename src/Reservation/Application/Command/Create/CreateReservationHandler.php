@@ -5,6 +5,7 @@ namespace App\Reservation\Application\Command\Create;
 use App\Reservation\Domain\Factory\ReservationFactory;
 use App\Reservation\Domain\ReservationStoreRepositoryInterface;
 use App\Shared\Infrastructure\Repository\ParkingSpaceTypeRepository;
+use App\Shared\Infrastructure\Repository\ParkingSpaceTypeRepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 
@@ -16,16 +17,16 @@ class CreateReservationHandler implements MessageHandlerInterface
     private $repository;
 
     /**
-     * @var ParkingSpaceTypeRepository
+     * @var ParkingSpaceTypeRepositoryInterface
      */
     private $spaceTypeRepository;
 
     /**
      * CancelReservationHandler constructor.
      * @param ReservationStoreRepositoryInterface $repository
-     * @param ParkingSpaceTypeRepository $spaceTypeRepository
+     * @param ParkingSpaceTypeRepositoryInterface $spaceTypeRepository
      */
-    public function __construct(ReservationStoreRepositoryInterface $repository, ParkingSpaceTypeRepository $spaceTypeRepository)
+    public function __construct(ReservationStoreRepositoryInterface $repository, ParkingSpaceTypeRepositoryInterface $spaceTypeRepository)
     {
         $this->repository = $repository;
         $this->spaceTypeRepository = $spaceTypeRepository;

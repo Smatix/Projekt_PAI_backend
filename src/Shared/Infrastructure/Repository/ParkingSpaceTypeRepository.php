@@ -6,7 +6,7 @@ use App\Shared\Domain\Model\ParkingSpaceType;
 use App\Shared\Infrastructure\Repository\MysqlRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ParkingSpaceTypeRepository extends MysqlRepository
+class ParkingSpaceTypeRepository extends MysqlRepository implements ParkingSpaceTypeRepositoryInterface
 {
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -27,7 +27,7 @@ class ParkingSpaceTypeRepository extends MysqlRepository
         return $array;
     }
 
-    public function getByName($name)
+    public function getByName(string $name)
     {
         $result = $this->repository->createQueryBuilder('t')
             ->select('t')

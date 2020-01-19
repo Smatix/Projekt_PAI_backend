@@ -87,7 +87,7 @@ class ReservationController extends AbstractController
         $reservationIsPossible = $this->reservationCheck->checkIfReservationIsPossible($command->getParkingId(),
             $command->getReservationDate(), $command->getType());
         if (!$reservationIsPossible) {
-            return $this->json('Reservation is impossible', 400);
+            return $this->json(['reservationDate' => 'Reservation is impossible in this term'], 400);
         }
         $command->setUserId($this->getUser()->getId());
         $this->messageBus->dispatch($command);
