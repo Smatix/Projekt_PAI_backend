@@ -126,6 +126,7 @@ class Staying
 
     public function markAsFinish()
     {
+        $this->stopCountingTime();
         if ($this->status === self::STATUS_STOP) {
             $this->status = self::STATUS_FINISHED;
         }
