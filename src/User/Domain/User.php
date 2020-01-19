@@ -2,6 +2,7 @@
 
 namespace App\User\Domain;
 
+use App\User\Domain\Service\PasswordEncoder;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
@@ -124,5 +125,9 @@ class User implements UserInterface
         return $this->roles;
     }
 
-
+    public function changeEmailAndPassword($email, $newPassword)
+    {
+        $this->password = PasswordEncoder::encode($newPassword);
+        $this->email = $email;
+    }
 }

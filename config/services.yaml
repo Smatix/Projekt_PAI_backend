@@ -25,3 +25,11 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    #UserStoreRepositoryInterface
+
+    App\User\Infrastructure\UserStoreRepository: ~
+    App\User\Infrastructure\InMemoryUserStoreRepository: ~
+
+    App\User\Domain\UserStoreRepositoryInterface $inMemoryRepository: '@App\User\Infrastructure\InMemoryUserStoreRepository'
+    App\User\Domain\UserStoreRepositoryInterface: '@App\User\Infrastructure\UserStoreRepository'

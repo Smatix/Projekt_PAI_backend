@@ -16,7 +16,12 @@ class UserStoreRepository extends MysqlRepository implements UserStoreRepository
 
     public function findByEmail(string $email)
     {
-        // TODO: Implement findByEmail() method.
+        return $this->repository->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 

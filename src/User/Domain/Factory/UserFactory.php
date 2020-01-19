@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Mateusz
- * Date: 21.12.2019
- * Time: 18:13
- */
 
 namespace App\User\Domain\Factory;
 
-
 use App\Shared\Infrastructure\Uuid\RamseyUuidAdapter;
+use App\User\Domain\Service\PasswordEncoder;
 use App\User\Domain\User;
 
 class UserFactory
@@ -23,7 +17,7 @@ class UserFactory
     {
         return new User(
             RamseyUuidAdapter::generate(),
-            password_hash($password, PASSWORD_BCRYPT),
+            PasswordEncoder::encode($password),
             $email,
             $name,
             $surname,

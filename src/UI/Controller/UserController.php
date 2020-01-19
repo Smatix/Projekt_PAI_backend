@@ -2,8 +2,11 @@
 
 namespace App\UI\Controller;
 
+use App\UI\Form\ChangeUserDataType;
 use App\UI\Form\RegistrationType;
+use App\User\Application\Command\ChangeUserDataCommand;
 use App\User\Application\Command\RegisterUserCommand;
+use App\User\Application\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,15 +17,25 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
+    /**
+     * @var MessageBusInterface
+     */
     private $messageBus;
 
     /**
-     * DefaultController constructor.
-     * @param $messageBus
+     * @var UserService
      */
-    public function __construct(MessageBusInterface $messageBus)
+    private $userService;
+
+    /**
+     * UserController constructor.
+     * @param MessageBusInterface $messageBus
+     * @param UserService $userService
+     */
+    public function __construct(MessageBusInterface $messageBus, UserService $userService)
     {
         $this->messageBus = $messageBus;
+        $this->userService = $userService;
     }
 
     /**
@@ -42,6 +55,33 @@ class UserController extends AbstractController
         }
         $this->messageBus->dispatch($command);
         return $this->json($command->getEmail(), 201);
+    }
+
+    /**
+     * @Route("/api/user/change_data", methods="PATCH", name="change_user_data")
+     * @param Request $request
+     * @return Response
+     */
+    public function changeData(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        $currentEmail = $this->getUser()->getEmail();
+        if (!$this->userService->checkIfPasswordIsCorrect($currentEmail, $data['oldPassword'])) {
+            return $this->json(['oldPassword' => 'The password is not the same'], 400);
+        }
+        $command =  new ChangeUserDataCommand();
+        $command->setOldEmail($currentEmail);
+        $command->setOldPassword($data['oldPassword']);
+
+        $form = $this->createForm(ChangeUserDataType::class, $command);
+        $form->submit($data);
+        if (!$form->isValid()) {
+            $errors = $this->getErrorsFromForm($form);
+            var_dump($errors);
+            return $this->json($errors, 400);
+        }
+        $this->messageBus->dispatch($command);
+        return $this->json($command->getNewEmail(), 201);
     }
 
     /**

@@ -8,6 +8,9 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class RegisterUserHandler implements MessageHandlerInterface
 {
+    /**
+     * @var UserStoreRepositoryInterface
+     */
     private $repository;
 
     /**
