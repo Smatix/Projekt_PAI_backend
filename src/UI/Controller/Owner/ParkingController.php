@@ -26,7 +26,7 @@ class ParkingController extends AbstractController
     }
 
     /**
-     * @Route("/api/parkings", methods="POST", name="create_parking")
+     * @Route("/api/owner/parkings", methods="POST", name="create_parking")
      * @param Request $request
      * @return Response
      */
