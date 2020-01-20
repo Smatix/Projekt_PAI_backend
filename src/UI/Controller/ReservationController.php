@@ -5,6 +5,7 @@ namespace App\UI\Controller;
 use App\Reservation\Application\Command\Accept\AcceptReservationCommand;
 use App\Reservation\Application\Command\Cancel\CancelReservationCommand;
 use App\Reservation\Application\Command\Create\CreateReservationCommand;
+use App\Reservation\Application\Command\Delete\DeleteReservationCommand;
 use App\Reservation\Application\Command\Finish\FinishReservationCommand;
 use App\Reservation\Application\Service\ReservationCheckService;
 use App\Reservation\Infrastructure\ReservationReadRepository;
@@ -116,6 +117,18 @@ class ReservationController extends AbstractController
         $command = new AcceptReservationCommand($id);
         $this->messageBus->dispatch($command);
         return $this->json('Reservation was accept', 200);
+    }
+
+    /**
+     * @Route("/api/user/reservations/{id}", methods="DELETE", name="delete_reservation")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function deleteReservation($id)
+    {
+        $command = new DeleteReservationCommand($id);
+        $this->messageBus->dispatch($command);
+        return $this->json('', 204);
     }
 
     /**

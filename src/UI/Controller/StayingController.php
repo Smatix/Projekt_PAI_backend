@@ -2,6 +2,7 @@
 
 namespace App\UI\Controller;
 
+use App\Staying\Application\Command\Delete\DeleteStayingCommand;
 use App\Staying\Application\Command\Finish\FinishStayingCommand;
 use App\Staying\Application\Command\Stop\StopStayingCommand;
 use App\Staying\Application\Service\StayingPriceCounter;
@@ -91,5 +92,17 @@ class StayingController extends AbstractController
         $command = new StopStayingCommand($id);
         $this->messageBus->dispatch($command);
         return $this->json('Staying was stop', 200);
+    }
+
+    /**
+     * @Route("/api/user/stayings/{id}", methods="DELETE", name="delete_staying")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function deleteReservation($id)
+    {
+        $command = new DeleteStayingCommand($id, $this->getUser()->getId());
+        $this->messageBus->dispatch($command);
+        return $this->json('', 204);
     }
 }

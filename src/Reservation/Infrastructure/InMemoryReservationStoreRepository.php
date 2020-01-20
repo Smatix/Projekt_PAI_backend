@@ -28,4 +28,14 @@ class InMemoryReservationStoreRepository implements ReservationStoreRepositoryIn
         $this->reservations[] = $reservation;
     }
 
+    public function remove(Reservation $reservation)
+    {
+        for ($i = 0; $i < count($this->reservations) ; $i++) {
+            if ($this->reservations[$i]->getId() === $reservation->getId()) {
+                unset($this->reservations[$i]);
+            }
+        }
+    }
+
+
 }

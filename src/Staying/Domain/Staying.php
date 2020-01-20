@@ -48,6 +48,11 @@ class Staying
     private $end;
 
     /**
+     * @var DateTime|null
+     */
+    private $deletedAt;
+
+    /**
      * Staying constructor.
      * @param string $id
      * @param ParkingSpaceType $type
@@ -104,6 +109,14 @@ class Staying
     }
 
     /**
+     * @return DateTime|null
+     */
+    public function getDeletedAt(): ?DateTime
+    {
+        return $this->deletedAt;
+    }
+
+    /**
      * @return string
      */
     public function getUserId(): string
@@ -148,4 +161,8 @@ class Staying
         }
     }
 
+    public function delete()
+    {
+        $this->deletedAt = new DateTime('now');
+    }
 }

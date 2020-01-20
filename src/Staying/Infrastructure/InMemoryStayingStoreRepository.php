@@ -28,14 +28,4 @@ class InMemoryStayingStoreRepository implements StayingStoreRepositoryInterface
         $this->stayings[] = $staying;
     }
 
-    public function remove(Staying $staying)
-    {
-        /** @var Staying $item */
-        foreach ($this->stayings as &$item) {
-            if ($item->getId() === $staying->getId()) {
-                unset($item);
-            }
-        }
-    }
-
 }

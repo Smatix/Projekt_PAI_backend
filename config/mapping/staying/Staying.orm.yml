@@ -18,6 +18,9 @@ App\Staying\Domain\Staying:
     end:
       type: datetime
       nullable: true
+    deletedAt:
+      type: datetime
+      nullable: true
     status:
       type: integer
   manyToOne:

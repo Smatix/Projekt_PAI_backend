@@ -25,4 +25,11 @@ class ReservationStoreRepository extends MysqlRepository implements ReservationS
         $this->em->flush();
     }
 
+    public function remove(Reservation $reservation)
+    {
+        $this->em->remove($reservation);
+        $this->em->flush();
+    }
+
+
 }

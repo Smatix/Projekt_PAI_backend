@@ -57,6 +57,7 @@ class StayingReadRepository extends MysqlRepository
             ->where('s.userId = :userId')
             ->andWhere('s.end IS NOT NULL')
             ->andWhere('s.status = :finish')
+            ->andWhere('s.deletedAt IS NULL')
             ->setParameter('userId', $userId)
             ->setParameter('finish', Staying::STATUS_FINISHED)
             ->orderBy('s.start')

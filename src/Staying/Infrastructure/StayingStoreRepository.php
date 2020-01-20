@@ -24,12 +24,4 @@ class StayingStoreRepository extends MysqlRepository implements StayingStoreRepo
         $this->em->persist($staying);
         $this->em->flush();
     }
-
-    public function remove(Staying $staying)
-    {
-        $this->em->remove($staying);
-        $this->em->flush();
-    }
-
-
 }
