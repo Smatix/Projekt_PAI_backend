@@ -40,8 +40,14 @@ services:
 
     App\Reservation\Domain\ReservationStoreRepositoryInterface: '@App\Reservation\Infrastructure\ReservationStoreRepository'
 
-    #ReservationStoreRepository
+    #ParkingSpaceTypeRepository
 
-    App\Shared\Infrastructure\ParkingSpaceTypeRepository: ~
+    App\Shared\Infrastructure\Repository\ParkingSpaceTypeRepository: ~
 
-    App\Shared\Domain\ParkingSpaceTypeRepositoryInterface: '@App\Shared\Infrastructure\ParkingSpaceTypeRepository'
+    App\Shared\Infrastructure\Repository\ParkingSpaceTypeRepositoryInterface: '@App\Shared\Infrastructure\Repository\ParkingSpaceTypeRepository'
+
+    #ParkingSpaceTypeRepository
+
+    App\Staying\Infrastructure\StayingStoreRepository: ~
+
+    App\Staying\Domain\StayingStoreRepositoryInterface: '@App\Staying\Infrastructure\StayingStoreRepository'

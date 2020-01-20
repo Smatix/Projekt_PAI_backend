@@ -36,8 +36,9 @@ class StayingPriceCounter
     private function calculateAmount($priceListItem, \DateTime $start, \DateTime $end)
     {
         $timeDifference = $start->diff($end);
+        $countOfDayToHours = $timeDifference->d*24;
         if ($priceListItem['unit'] === 'h' && $priceListItem['period'] === 1) {
-            return ($timeDifference->h + 1)*intval($priceListItem['price']);
+            return ($countOfDayToHours + $timeDifference->h + 1)*intval($priceListItem['price']);
         }
     }
 }

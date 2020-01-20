@@ -2,7 +2,6 @@
 
 namespace App\Staying\Infrastructure;
 
-
 use App\Shared\Infrastructure\Repository\MysqlRepository;
 use App\Staying\Domain\Staying;
 use App\Staying\Domain\StayingStoreRepositoryInterface;
@@ -25,5 +24,12 @@ class StayingStoreRepository extends MysqlRepository implements StayingStoreRepo
         $this->em->persist($staying);
         $this->em->flush();
     }
+
+    public function remove(Staying $staying)
+    {
+        $this->em->remove($staying);
+        $this->em->flush();
+    }
+
 
 }

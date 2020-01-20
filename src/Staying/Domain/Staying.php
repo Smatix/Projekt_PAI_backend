@@ -64,6 +64,14 @@ class Staying
     }
 
     /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
      * @return ParkingSpaceType
      */
     public function getType(): ParkingSpaceType

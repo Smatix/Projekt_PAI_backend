@@ -8,4 +8,6 @@ interface StayingStoreRepositoryInterface
     public function getById(string $id);
 
     public function save(Staying $staying);
+
+    public function remove(Staying $staying);
 }
