@@ -6,6 +6,7 @@ use App\Reservation\Domain\Reservation;
 use App\Reservation\Domain\ReservationStoreRepositoryInterface;
 use App\Shared\Infrastructure\Repository\MysqlRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Runner\Exception;
 
 class ReservationStoreRepository extends MysqlRepository implements ReservationStoreRepositoryInterface
 {
@@ -21,10 +22,15 @@ class ReservationStoreRepository extends MysqlRepository implements ReservationS
 
     public function save(Reservation $reservation)
     {
-        $this->em->getConnection()->beginTransaction();
-        $this->em->persist($reservation);
-        $this->em->flush();
-        $this->em->getConnection()->commit();
+        try {
+            $this->em->getConnection()->beginTransaction();
+            $this->em->persist($reservation);
+            $this->em->flush();
+            $this->em->getConnection()->commit();
+        } catch (Exception $e) {
+            $this->em->getConnection()->rollBack();
+        }
+
     }
 
     public function remove(Reservation $reservation)
