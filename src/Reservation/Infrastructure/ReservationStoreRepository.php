@@ -21,8 +21,10 @@ class ReservationStoreRepository extends MysqlRepository implements ReservationS
 
     public function save(Reservation $reservation)
     {
+        $this->em->getConnection()->beginTransaction();
         $this->em->persist($reservation);
         $this->em->flush();
+        $this->em->getConnection()->commit();
     }
 
     public function remove(Reservation $reservation)
