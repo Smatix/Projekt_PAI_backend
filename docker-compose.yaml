@@ -1,0 +1,32 @@
+version:  '3.0'
+
+services:
+  web:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    image: apache-php7.3.2
+    volumes:
+      - .:/var/www/html/zaparkujfure/pai_backend/
+    ports:
+      - '80:80'
+      - '2013:2013'
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASS}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASS}
+      MYSQL_DATABASE: ${MYSQL_DB}
+    ports:
+      - "3306:3306"
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: password
