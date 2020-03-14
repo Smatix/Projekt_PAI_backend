@@ -2,8 +2,8 @@
 
 namespace App\Opinion\Application\Command;
 
-
 use App\Shared\Infrastructure\Uuid\RamseyUuidAdapter;
+
 
 class CreateOpinionCommand
 {
@@ -89,17 +89,11 @@ class CreateOpinionCommand
         return $this->author;
     }
 
-    /**
-     * @param string $author
-     */
     public function setAuthor(string $author): void
     {
         $this->author = $author;
     }
 
-    /**
-     * @return string
-     */
     public function getParkingId(): ?string
     {
         return $this->parkingId;
